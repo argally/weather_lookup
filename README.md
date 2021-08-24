@@ -26,7 +26,14 @@ docker build -t logprocess .
 This will run the containter Named logprocessor using image logprocess
 By default this will leverage sample.log included with image
 
+Container should return top three countries
+For each country count values and location data is pulled based first available Host IP for that country
+The temperature in Celsius is returned 
 
 ```
 docker run --name logprocessor logprocess sample.log <openweather_api_key>
+united states 1000 23.84
+china 196 25.06
+japan 127 26.4
+
 ```
