@@ -32,7 +32,7 @@ def main():
     parser.add_argument("log_file", action="store")
     parser.add_argument("api_key", action="store")
     args = parser.parse_args()
-    
+
     with open(args.log_file, "r") as reader:
         log_entries = reader.readlines()
     parsed = normalized_result(log_entries)
@@ -44,11 +44,7 @@ def main():
     for (country_count, location_info) in itertools.zip_longest(
         top_three.values(), openweather_candidates
     ):
-        temperature = get_temp(
-            location_info["lat"],
-            location_info["lon"],
-            args.api_key
-        )
+        temperature = get_temp(location_info["lat"], location_info["lon"], args.api_key)
         print(f"{location_info['country']} {country_count} {temperature}")
 
 

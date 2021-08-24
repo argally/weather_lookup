@@ -37,15 +37,14 @@ def is_valid_ipv4_address(ip):
 
 def country_data(data):
     """
-    For each IP address return corresponding Country Name value
-    and standarize to lowercase for later comparison
+    For each IP address return corresponding Country Code
 
     If the value doesn't exist return None
 
     :param data:
     """
     try:
-        return data.registered_country.names["en"].lower()
+        return data.registered_country.iso_code
     except KeyError:
         return None
 
@@ -102,7 +101,7 @@ def top_three_location(country_list, country_dict):
     country_candidates = []
     for country, _ in top_three.items():
         country_candidates.append(
-            next(item for item in country_dict if item["country"] == country.lower())
+            next(item for item in country_dict if item["country"] == country)
         )
     return top_three, country_candidates
 
@@ -135,12 +134,12 @@ def geoip_lookup(ip_list):
                         ):
                             country_geo_dicts.append(
                                 {
-                                    "country": country_data(response),
+                                    "country": country_data(response).upper(),
                                     "lat": latitude_data(response),
                                     "lon": longitude_data(response),
                                 }
                             )
-                            country_list.append(country_data(response))
+                            country_list.append(country_data(response).upper())
                     except geoip2.errors.AddressNotFoundError:
                         pass
     except FileNotFoundError:
