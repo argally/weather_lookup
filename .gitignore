@@ -1,0 +1,8 @@
+*~
+*.pyc
+*.zip
+.env/
+.idea/
+.pylintrc
+Makefile
+requirements-dev.txt
